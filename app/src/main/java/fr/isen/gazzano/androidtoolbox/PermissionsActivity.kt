@@ -1,6 +1,8 @@
 package fr.isen.gazzano.androidtoolbox
 
+import android.app.Activity
 import android.content.ContentResolver
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.widget.ArrayAdapter
@@ -19,6 +21,22 @@ class PermissionsActivity : AppCompatActivity() {
 
         getContacts()
         contact_list.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
+
+        imageView.setOnClickListener{
+            pickImageFromGallery()
+        }
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 1000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1000){
+            imageView.setImageURI(data?.data)
+        }
     }
 
     private fun getContacts() {
