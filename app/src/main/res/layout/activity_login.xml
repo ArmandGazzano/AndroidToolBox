@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="Connexion"
+        android:text="@string/connexion"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
         android:background="#FF0000"
-        android:text="Valider"
+        android:text="@string/valider"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,8 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/validateButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/id"
@@ -52,13 +53,14 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mot de passe"
+        android:text="@string/mot_de_passe"
         android:textColor="#9E9494"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/password" />
@@ -67,7 +69,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Identifiant"
+        android:text="@string/identifiant"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toTopOf="@+id/id"
         app:layout_constraintStart_toStartOf="@+id/id" />
@@ -77,6 +79,7 @@
         android:layout_width="327dp"
         android:layout_height="122dp"
         android:layout_marginTop="84dp"
+        android:contentDescription="@string/logo_isen_acueuil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle"

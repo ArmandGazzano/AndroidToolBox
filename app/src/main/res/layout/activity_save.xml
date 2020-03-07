@@ -15,7 +15,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/firstName"
@@ -26,13 +27,14 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+        app:layout_constraintTop_toBottomOf="@+id/lastName"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom."
+        android:text="@string/nom"
         app:layout_constraintBottom_toTopOf="@+id/lastName"
         app:layout_constraintStart_toStartOf="@+id/lastName" />
 
@@ -40,7 +42,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prénom"
+        android:text="@string/pr_nom"
         app:layout_constraintBottom_toTopOf="@+id/firstName"
         app:layout_constraintStart_toStartOf="@+id/firstName" />
 
@@ -49,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Date"
+        android:text="@string/date"
         app:layout_constraintStart_toStartOf="@+id/firstName"
         app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
@@ -58,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Sauvegarder"
+        android:text="@string/sauvegarder"
         app:layout_constraintBottom_toTopOf="@+id/readButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -69,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="96dp"
-        android:text="lecture"
+        android:text="@string/lecture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -78,7 +80,7 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="../../...."
+        android:text="@string/date_picker"
         app:layout_constraintEnd_toEndOf="@+id/firstName"
         app:layout_constraintTop_toTopOf="@+id/dateTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

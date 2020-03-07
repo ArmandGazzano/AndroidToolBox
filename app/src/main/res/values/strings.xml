@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">AndroidToolBox</string>
+    <string name="connexion">Connexion</string>
+    <string name="valider">Valider</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="logo_isen_acueuil">logo_isen_acueuil</string>
+    <string name="cycle_de_vie_titre">Cycle de vie</string>
+    <string name="logo_isen_home">logo_isen_home</string>
+    <string name="bonjour">Bonjour</string>
+    <string name="cycle_de_vie">Cycle de vie</string>
+    <string name="sauvegarde">Sauvegarde</string>
+    <string name="permissions">Permissions</string>
+    <string name="web_services">Web services</string>
+    <string name="deconnexion">Deconnexion</string>
+    <string name="bouton_cycle_de_vie">bouton_cycle_de_vie</string>
+    <string name="bouton_sauvegarde">bouton_sauvegarde</string>
+    <string name="bouton_permissions">bouton_permissions</string>
+    <string name="bouton_web_services">bouton_web_services</string>
+    <string name="nom">Nom.</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="date">Date</string>
+    <string name="sauvegarder">Sauvegarder</string>
+    <string name="lecture">lecture</string>
+    <string name="date_picker">../../....</string>
 </resources>
