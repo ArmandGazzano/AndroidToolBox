@@ -41,5 +41,10 @@ class ActivityHome : AppCompatActivity() {
             editor.clear()
             editor.apply()
         }
+
+        permissionsButton.setOnClickListener {
+            val intent = Intent(this, PermissionsActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

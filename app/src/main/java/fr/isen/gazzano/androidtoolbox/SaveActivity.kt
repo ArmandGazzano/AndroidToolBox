@@ -13,6 +13,8 @@ import java.util.*
 
 class SaveActivity : AppCompatActivity() {
 
+    var age = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_save)
@@ -37,7 +39,15 @@ class SaveActivity : AppCompatActivity() {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
+
+                val today = Calendar.getInstance()
                 date.text = sdf.format(cal.time)
+
+                age = today.get(Calendar.YEAR) - cal.get(Calendar.YEAR)
+
+                if (today.get(Calendar.DAY_OF_YEAR) < cal.get(Calendar.DAY_OF_YEAR))
+                    age--
+
             }
 
         date.setOnClickListener{
@@ -65,7 +75,7 @@ class SaveActivity : AppCompatActivity() {
 
         AlertDialog.Builder(this)
             .setTitle("Lecture du fichier")
-            .setMessage("Nom : $lastName \nPrénom : $firstName \nDate : $date")
+            .setMessage("Nom : $lastName \nPrénom : $firstName \nDate : $date \nAge : $age")
             .create()
             .show()
     }

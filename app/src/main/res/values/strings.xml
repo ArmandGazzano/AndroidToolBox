@@ -23,4 +23,8 @@
     <string name="sauvegarder">Sauvegarder</string>
     <string name="lecture">lecture</string>
     <string name="date_picker">../../....</string>
+    <string name="acc_s_aux_informations_android">Accès aux informations Android</string>
+    <string name="contact_de_armand_gazzano">Contact de Armand GAZZANO</string>
+    <string name="buton_camera">buton_camera</string>
+    <string name="liste_contact">TextView</string>
 </resources>

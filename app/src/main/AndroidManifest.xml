@@ -3,6 +3,7 @@
     package="fr.isen.gazzano.androidtoolbox">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SaveActivity"></activity>
+        <activity android:name=".PermissionsActivity"></activity>
+        <activity android:name=".SaveActivity" />
         <activity android:name=".lifeCycleActivity" />
         <activity android:name=".ActivityHome" />
         <activity android:name=".ActivityLogin">
