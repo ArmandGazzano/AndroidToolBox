@@ -6,25 +6,19 @@ import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.icu.util.Calendar
-import android.media.MediaScannerConnection
 import android.os.Bundle
-import android.os.Environment
 import android.provider.ContactsContract
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_permissions.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 
 
 class PermissionsActivity : AppCompatActivity() {
 
     val contacts = mutableListOf<String>()
+    lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +68,8 @@ class PermissionsActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
             imageView.setImageURI(data?.data)
         }else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
-            takePictureIntent()
+            var bmp = data?.extras?.get("data") as Bitmap
+            imageView.setImageBitmap(bmp)
         }
     }
 
