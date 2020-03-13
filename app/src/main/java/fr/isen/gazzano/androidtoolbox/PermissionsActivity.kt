@@ -9,24 +9,29 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_permissions.*
 
 
 class PermissionsActivity : AppCompatActivity() {
 
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
     val contacts = mutableListOf<String>()
-    lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
         getContacts()
-        contact_list.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
+
+        listContact.adapter = ContactAdapter(contacts.sorted())
+        listContact.layoutManager = LinearLayoutManager(this)
+
+        //contact_list.adapter =
+        //   ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
 
         imageView.setOnClickListener {
             showPictureDialog();
@@ -87,7 +92,7 @@ class PermissionsActivity : AppCompatActivity() {
             while (cursor.moveToNext()) {
                 val name =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                contacts.add("Nom : $name")
+                contacts.add("  Nom : $name")
             }
         } else {
             Toast.makeText(applicationContext, "No contacts available!", Toast.LENGTH_SHORT).show()
