@@ -26,8 +26,6 @@ class ActivityHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        checkPermission()
-
         sharedPreferences = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
         lifeCycleButton.setOnClickListener {
@@ -55,30 +53,10 @@ class ActivityHome : AppCompatActivity() {
             val intent = Intent(this, PermissionsActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    private fun checkPermission(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-            != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            makeContactRequest()
+        wsButton.setOnClickListener {
+            val intent = Intent(this, WebServicesActivity::class.java)
+            startActivity(intent)
         }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            makeCameraRequest()
-        }
-    }
-
-    private fun makeContactRequest() {
-        ActivityCompat.requestPermissions(this,
-            arrayOf(Manifest.permission.READ_CONTACTS),
-            RECORD_REQUEST_CODE)
-    }
-
-    private fun makeCameraRequest() {
-        ActivityCompat.requestPermissions(this,
-            arrayOf(Manifest.permission.CAMERA),
-            RECORD_REQUEST_CODE)
     }
 }

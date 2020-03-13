@@ -1,16 +1,22 @@
 package fr.isen.gazzano.androidtoolbox
 
+import android.Manifest
+import android.Manifest.permission.READ_CONTACTS
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_permissions.*
 
@@ -25,10 +31,9 @@ class PermissionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
-        getContacts()
+        checkPermission()
 
-        listContact.adapter = ContactAdapter(contacts.sorted())
-        listContact.layoutManager = LinearLayoutManager(this)
+        loadContacts()
 
         //contact_list.adapter =
         //   ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
@@ -72,9 +77,26 @@ class PermissionsActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
             imageView.setImageURI(data?.data)
-        }else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
             var bmp = data?.extras?.get("data") as Bitmap
             imageView.setImageBitmap(bmp)
+        }
+    }
+
+    private fun loadContacts() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_CONTACTS),
+                1
+            )
+        } else {
+            getContacts()
+            listContact.adapter = ContactAdapter(contacts.sorted())
+            listContact.layoutManager = LinearLayoutManager(this)
         }
     }
 
@@ -88,7 +110,7 @@ class PermissionsActivity : AppCompatActivity() {
             null
         )
 
-        if (cursor!!.count > 0) {
+        if (cursor != null && cursor.count > 0) {
             while (cursor.moveToNext()) {
                 val name =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
@@ -97,6 +119,37 @@ class PermissionsActivity : AppCompatActivity() {
         } else {
             Toast.makeText(applicationContext, "No contacts available!", Toast.LENGTH_SHORT).show()
         }
-        cursor.close()
+        cursor?.close()
+    }
+
+    private fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted
+            makeContactRequest()
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted
+            makeCameraRequest()
+        }
+    }
+
+    private fun makeContactRequest() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.READ_CONTACTS),
+            1
+        )
+    }
+
+    private fun makeCameraRequest() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.CAMERA),
+            2
+        )
     }
 }
