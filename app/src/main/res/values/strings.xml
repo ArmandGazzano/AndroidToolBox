@@ -28,4 +28,7 @@
     <string name="buton_camera">buton_camera</string>
     <string name="liste_contact">TextView</string>
     <string name="contact_name">TextView</string>
+    <string name="profil_pic">TODO</string>
+    <string name="user_address">TextView</string>
+    <string name="user_mail">TextView</string>
 </resources>
