@@ -113,7 +113,7 @@ class PermissionsActivity : AppCompatActivity() {
             while (cursor.moveToNext()) {
                 val name =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                contacts.add("  Nom : $name")
+                contacts.add("Nom : $name")
             }
         } else {
             Toast.makeText(applicationContext, "No contacts available!", Toast.LENGTH_SHORT).show()
@@ -126,17 +126,17 @@ class PermissionsActivity : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED
         ) {
             // Permission is not granted
-            makeContactRequest()
+            makeContactPermissionRequest()
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
         ) {
             // Permission is not granted
-            makeCameraRequest()
+            makeCameraPermissionRequest()
         }
     }
 
-    private fun makeContactRequest() {
+    private fun makeContactPermissionRequest() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.READ_CONTACTS),
@@ -144,7 +144,7 @@ class PermissionsActivity : AppCompatActivity() {
         )
     }
 
-    private fun makeCameraRequest() {
+    private fun makeCameraPermissionRequest() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.CAMERA),

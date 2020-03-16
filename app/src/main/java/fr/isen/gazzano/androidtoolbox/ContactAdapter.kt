@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_permissions_cell.view.*
 
 
-class ContactAdapter(private val contacts : List<String>) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>(){
+class ContactAdapter(private val contacts: List<String>) :
+    RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder =
         ContactViewHolder(
