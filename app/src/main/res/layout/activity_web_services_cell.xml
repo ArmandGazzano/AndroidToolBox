@@ -57,11 +57,11 @@
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:contentDescription="@string/type_1_pokemon"
         app:layout_constraintBottom_toBottomOf="@+id/user_email"
         app:layout_constraintEnd_toStartOf="@+id/type2"
         app:layout_constraintTop_toTopOf="@+id/user_email"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <ImageView
         android:id="@+id/type2"
@@ -69,6 +69,7 @@
         android:layout_height="25dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
+        android:contentDescription="@string/type_2_pokemon"
         app:layout_constraintBottom_toBottomOf="@+id/user_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_email"

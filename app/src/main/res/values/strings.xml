@@ -31,4 +31,6 @@
     <string name="profil_pic">TODO</string>
     <string name="user_address">TextView</string>
     <string name="user_mail">TextView</string>
+    <string name="type_1_pokemon">type_1_pokemon</string>
+    <string name="type_2_pokemon">type_2_pokemon</string>
 </resources>
