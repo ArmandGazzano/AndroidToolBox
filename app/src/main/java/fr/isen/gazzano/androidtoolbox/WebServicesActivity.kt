@@ -3,13 +3,14 @@ package fr.isen.gazzano.androidtoolbox
 import Next_evolution
 import Pokemon
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_web_services.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -25,7 +26,8 @@ class WebServicesActivity : AppCompatActivity(){
         setContentView(R.layout.activity_web_services)
 
         Volley.newRequestQueue(this).add(getJsonObjectRequest())
-        //Log.d("Pokemon", pokemon[0].name)
+
+        //val pokemonList2 =  Gson().fromJson(JsonObject, Pokemon::class.java)
     }
 
     fun getJsonObjectRequest() : JsonObjectRequest {
@@ -36,7 +38,6 @@ class WebServicesActivity : AppCompatActivity(){
             },
             Response.ErrorListener {  })
 
-        Log.d("T", "${listPokemon}" + "       ++++++++++++++++++++++++++++++++++++++++++++ pokemon ++++++++++++++++++++++++++++++++++++++++++++")
         return jsonObjectRequest
     }
 
@@ -47,8 +48,9 @@ class WebServicesActivity : AppCompatActivity(){
         for (i in 0 until size) {
             val pokemonObject = jsonArrayResults.getJSONObject(i)
 
-            /*
             val pokemonTypeObject = pokemonObject.getJSONArray("type")
+
+            /*
             val pokemonMultipliersObjects =  pokemonObject.getJSONArray("multipliers")
             val pokemonWeaknessObjects = pokemonObject.getJSONArray("weaknesses")
             val pokemonNextEvolutionObjects = pokemonObject.getJSONArray("next_evolution")
@@ -58,7 +60,7 @@ class WebServicesActivity : AppCompatActivity(){
             val num = pokemonObject.getInt("num")
             val name = pokemonObject.getString("name")
             val img = pokemonObject.getString("img")
-            val type = listOf<String>()     //pokemonTypeObject.getString("type")
+            val type = pokemonTypeObject   //pokemonTypeObject.getString("type")
             val height = pokemonObject.getString("height")
             val weight = pokemonObject.getString("weight")
             val candy = pokemonObject.getString("candy")
@@ -73,10 +75,7 @@ class WebServicesActivity : AppCompatActivity(){
 
             listPokemon += Pokemon(id, num, name, img, type, height, weight, candy, /*candy_count,*/ egg, spawn_chance, avg_spawns, spawn_time, multipliers, weaknesses, next_evolution)
 
-            //Log.d("T", "$pokemon")
-            //Log.d("JSON", "$name")
         }
-        //Log.d("User", pokemon.toString())
         recyclerView.adapter = WebServicesAdapter(this, listPokemon)
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
