@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WebServicesActivity"></activity>
+        <activity android:name=".WebServiceDetails"></activity>
+        <activity android:name=".WebServicesActivity" />
         <activity android:name=".PermissionsActivity" />
         <activity android:name=".SaveActivity" />
         <activity android:name=".lifeCycleActivity" />

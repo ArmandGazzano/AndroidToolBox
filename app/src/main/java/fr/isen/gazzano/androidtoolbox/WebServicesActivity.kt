@@ -10,13 +10,12 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_web_services.*
 import org.json.JSONArray
 import org.json.JSONObject
 
 
-class WebServicesActivity : AppCompatActivity(){
+class WebServicesActivity : AppCompatActivity() {
 
     private val url = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
     private val listPokemon = mutableListOf<Pokemon>()
@@ -27,14 +26,16 @@ class WebServicesActivity : AppCompatActivity(){
 
         Volley.newRequestQueue(this).add(getJsonObjectRequest())
 
-        //val pokemonList2 =  Gson().fromJson(JsonObject, Pokemon::class.java)
+        //val pokemonList2 =  Gson().fromJson(, Pokemon::class.java)
     }
 
     fun getJsonObjectRequest() : JsonObjectRequest {
 
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
+                val pokemonListGson =  Gson().fromJson(response.toString(), Pokemon::class.java)
                 parseObject(response)
+                println(pokemonListGson)
             },
             Response.ErrorListener {  })
 
