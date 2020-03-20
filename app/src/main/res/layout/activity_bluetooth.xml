@@ -56,10 +56,10 @@
 
     <View
         android:id="@+id/dividerBle"
-        android:layout_width="409dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="6dp"
+        android:background="#FF0000"
         android:backgroundTint="#FF0000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
