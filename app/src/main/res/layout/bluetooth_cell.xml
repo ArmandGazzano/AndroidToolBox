@@ -20,7 +20,7 @@
         android:id="@+id/nameBT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/rssiBT"
         app:layout_constraintStart_toEndOf="@+id/rssiBT"
@@ -30,7 +30,7 @@
         android:id="@+id/addressBT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         app:layout_constraintStart_toEndOf="@+id/rssiBT"
         app:layout_constraintTop_toBottomOf="@+id/rssiBT" />
 </androidx.constraintlayout.widget.ConstraintLayout>
