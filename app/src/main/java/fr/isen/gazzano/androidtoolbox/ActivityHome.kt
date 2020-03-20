@@ -58,5 +58,10 @@ class ActivityHome : AppCompatActivity() {
             val intent = Intent(this, WebServicesActivity::class.java)
             startActivity(intent)
         }
+
+        bluetoothButton.setOnClickListener {
+            val intent = Intent(this, BluetoothActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

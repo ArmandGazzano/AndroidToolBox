@@ -33,4 +33,9 @@
     <string name="user_mail">TextView</string>
     <string name="type_1_pokemon">type_1_pokemon</string>
     <string name="type_2_pokemon">type_2_pokemon</string>
+    <string name="bluetooth_button">bluetooth_button</string>
+    <string name="lancer_le_scan_ble">Lancer le scan BLE</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="telephone_non_compatible_avec_le_ble">TELEPHONE NON COMPATIBLE AVEC LE BLE</string>
+    <string name="_00">00</string>
 </resources>
