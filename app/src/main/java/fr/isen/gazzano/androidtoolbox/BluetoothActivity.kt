@@ -3,6 +3,7 @@ package fr.isen.gazzano.androidtoolbox
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
@@ -29,11 +30,7 @@ class BluetoothActivity : AppCompatActivity() {
     private lateinit var adapter: BluetoothActivityAdapter
     private val devices = ArrayList<ScanResult>()
 
-    private var mCountDownTimer: CountDownTimer? = null
-
-    private var mTimerRunning = false
-
-    private var mTimeLeftInMillis = SCAN_PERIOD
+    var bluetoothGatt: BluetoothGatt? = null
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -138,6 +135,7 @@ class BluetoothActivity : AppCompatActivity() {
     private fun onDeviceClicked(device: BluetoothDevice) {
         val intent = Intent(this, BluetoothDetails::class.java)
         intent.putExtra("ble_device", device)
+        //bluetoothGatt = device.connectGatt(this, false, gattCallback)
         startActivity(intent)
     }
 
