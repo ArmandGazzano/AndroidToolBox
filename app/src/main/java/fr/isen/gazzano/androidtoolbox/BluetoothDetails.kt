@@ -50,9 +50,6 @@ class BluetoothDetails : AppCompatActivity() {
 
         override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
             super.onServicesDiscovered(gatt, status)
-            gatt?.services?.forEach {
-                Log.i(TAG, "Service detecté : ${it.uuid}")
-            }
             runOnUiThread {
                 detailsView.adapter = BluetoothDetailsAdapter(
                     gatt?.services?.map {
@@ -62,8 +59,8 @@ class BluetoothDetails : AppCompatActivity() {
                         )
                     }?.toMutableList() ?: arrayListOf()
                 )
+                detailsView.layoutManager = LinearLayoutManager(this@BluetoothDetails)
             }
-            detailsView.layoutManager = LinearLayoutManager(this@BluetoothDetails)
         }
     }
 
@@ -72,13 +69,14 @@ class BluetoothDetails : AppCompatActivity() {
         bluetoothGatt?.close()
     }
 
-    companion object{
+    companion object {
         private const val STATE_DISCONNECTED = "déconnecté"
         private const val STATE_CONNECTING = 1
         private const val STATE_CONNECTED = "Connecté"
         const val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
         const val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
-        const val ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"
+        const val ACTION_GATT_SERVICES_DISCOVERED =
+            "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"
         const val ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE"
         const val EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA"
     }
