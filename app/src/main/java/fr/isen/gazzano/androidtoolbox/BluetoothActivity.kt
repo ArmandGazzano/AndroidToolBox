@@ -9,6 +9,7 @@ import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -22,10 +23,17 @@ import kotlin.collections.ArrayList
 
 
 class BluetoothActivity : AppCompatActivity() {
+
     private lateinit var handler: Handler
     private var mScanning: Boolean = false
     private lateinit var adapter: BluetoothActivityAdapter
     private val devices = ArrayList<ScanResult>()
+
+    private var mCountDownTimer: CountDownTimer? = null
+
+    private var mTimerRunning = false
+
+    private var mTimeLeftInMillis = SCAN_PERIOD
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -45,8 +53,17 @@ class BluetoothActivity : AppCompatActivity() {
             when {
                 isBLEEnabled -> {
                     //init scan
-                    initBLEScan()
-                    initScan()
+                    if (textView12.text == "Lancer le scan BLE") {
+                        searchButton.setImageResource(android.R.drawable.ic_media_pause)
+                        textView12.text = "Scan en cours ..."
+                        startTimer()
+                        initBLEScan()
+                        initScan()
+                    } else {
+                        searchButton.setImageResource(android.R.drawable.ic_media_play)
+                        textView12.text = "Lancer le scan BLE"
+                        resetTimer()
+                    }
                 }
                 bluetoothAdapter != null -> {
                     //ask for permission
@@ -59,15 +76,16 @@ class BluetoothActivity : AppCompatActivity() {
                 }
             }
         }
+        updateCountDownText()
         deviceListRV.adapter = BluetoothActivityAdapter(devices, ::onDeviceClicked)
         deviceListRV.layoutManager = LinearLayoutManager(this)
     }
 
 
-
     private fun initScan() {
         progressBar.visibility = View.VISIBLE
         dividerBle.visibility = View.GONE
+        progressBar.progress = 0
 
         handler = Handler()
         scanLeDevice(true)
@@ -76,7 +94,7 @@ class BluetoothActivity : AppCompatActivity() {
     private fun scanLeDevice(enable: Boolean) {
         bluetoothAdapter?.bluetoothLeScanner?.apply {
             if (enable) {
-                Log.w("BLEScanActivity", "Scanning for devices")
+                Log.w("BLE", "Scanning for devices")
                 handler.postDelayed({
                     mScanning = false
                     stopScan(leScanCallback)
@@ -85,7 +103,6 @@ class BluetoothActivity : AppCompatActivity() {
                 startScan(leScanCallback)
                 adapter.clearResults()
                 adapter.notifyDataSetChanged()
-                progressBar.progress = (progressBar.progress + 5) % 100
             } else {
                 mScanning = false
                 stopScan(leScanCallback)
@@ -115,10 +132,9 @@ class BluetoothActivity : AppCompatActivity() {
         handler = Handler()
 
         scanLeDevice(true)
-        deviceListRV.setOnClickListener{
+        deviceListRV.setOnClickListener {
             scanLeDevice(!mScanning)
         }
-
     }
 
     private fun onDeviceClicked(device: BluetoothDevice) {
@@ -143,8 +159,39 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
+    private fun startTimer() {
+        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                mTimeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+                progressBar.progress = (SCAN_PERIOD - millisUntilFinished).toInt() % 100
+            }
+
+            override fun onFinish() {
+                mTimerRunning = false
+            }
+        }.start()
+        mTimerRunning = true
+    }
+
+    private fun resetTimer() {
+        mTimeLeftInMillis = SCAN_PERIOD
+        updateCountDownText()
+        progressBar.progress = 0
+        progressBar.visibility = View.GONE
+        dividerBle.visibility = View.GONE
+    }
+
+    private fun updateCountDownText() {
+        val minutes = (mTimeLeftInMillis / 1000).toInt() / 60
+        val seconds = (mTimeLeftInMillis / 1000).toInt() % 60
+        val timeLeftFormatted: String =
+            java.lang.String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        timer.text = timeLeftFormatted
+    }
+
     companion object {
-        private const val SCAN_PERIOD: Long = 10000
+        private const val SCAN_PERIOD: Long = 60000
         private const val REQUEST_ENABLE_BT = 44
     }
 }

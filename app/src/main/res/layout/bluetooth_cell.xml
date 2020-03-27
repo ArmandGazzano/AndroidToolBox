@@ -7,15 +7,15 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView5"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:tint="#FF0000"
+        android:layout_marginStart="22dp"
+        android:contentDescription="@string/red"
         app:layout_constraintBottom_toBottomOf="@+id/rssiBT"
-        app:layout_constraintEnd_toEndOf="@+id/rssiBT"
-        app:layout_constraintStart_toStartOf="@+id/rssiBT"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rssiBT"
-        app:srcCompat="@android:drawable/radiobutton_off_background" />
+        app:srcCompat="@drawable/rssiback" />
 
     <TextView
         android:id="@+id/rssiBT"

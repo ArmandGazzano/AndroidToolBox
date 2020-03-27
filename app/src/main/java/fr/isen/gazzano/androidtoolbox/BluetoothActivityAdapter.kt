@@ -9,10 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.bluetooth_cell.view.*
 
-
 class BluetoothActivityAdapter(private val scanResults: ArrayList<ScanResult>, private val deviceClickListener: (BluetoothDevice) -> Unit) :
     RecyclerView.Adapter<BluetoothActivityAdapter.DevicesViewHolder>() {
-
 
     class DevicesViewHolder(devicesView: View) : RecyclerView.ViewHolder(devicesView){
         val layout = devicesView.layoutCell
@@ -23,7 +21,6 @@ class BluetoothActivityAdapter(private val scanResults: ArrayList<ScanResult>, p
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevicesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.bluetooth_cell, parent, false)
-
 
         return DevicesViewHolder(view)
     }
@@ -38,8 +35,6 @@ class BluetoothActivityAdapter(private val scanResults: ArrayList<ScanResult>, p
             deviceClickListener.invoke(scanResults[position].device)
         }
     }
-
-
 
     fun addDeviceToList(result: ScanResult) {
         val index = scanResults.indexOfFirst { it.device.address == result.device.address }
