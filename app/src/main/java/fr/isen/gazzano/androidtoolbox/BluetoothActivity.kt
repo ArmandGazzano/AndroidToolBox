@@ -178,8 +178,6 @@ class BluetoothActivity : AppCompatActivity() {
         mTimeLeftInMillis = SCAN_PERIOD
         updateCountDownText()
         progressBar.progress = 0
-        progressBar.visibility = View.GONE
-        dividerBle.visibility = View.GONE
     }
 
     private fun updateCountDownText() {
