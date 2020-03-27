@@ -56,13 +56,13 @@ class BluetoothActivity : AppCompatActivity() {
                     if (textView12.text == "Lancer le scan BLE") {
                         searchButton.setImageResource(android.R.drawable.ic_media_pause)
                         textView12.text = "Scan en cours ..."
-                        startTimer()
                         initBLEScan()
                         initScan()
-                    } else {
+                    } else if (textView12.text == "Scan en cours ...") {
                         searchButton.setImageResource(android.R.drawable.ic_media_play)
                         textView12.text = "Lancer le scan BLE"
-                        resetTimer()
+                        progressBar.visibility = View.INVISIBLE
+                        dividerBle.visibility = View.VISIBLE
                     }
                 }
                 bluetoothAdapter != null -> {
@@ -76,7 +76,6 @@ class BluetoothActivity : AppCompatActivity() {
                 }
             }
         }
-        updateCountDownText()
         deviceListRV.adapter = BluetoothActivityAdapter(devices, ::onDeviceClicked)
         deviceListRV.layoutManager = LinearLayoutManager(this)
     }
@@ -85,7 +84,6 @@ class BluetoothActivity : AppCompatActivity() {
     private fun initScan() {
         progressBar.visibility = View.VISIBLE
         dividerBle.visibility = View.GONE
-        progressBar.progress = 0
 
         handler = Handler()
         scanLeDevice(true)
@@ -138,7 +136,7 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     private fun onDeviceClicked(device: BluetoothDevice) {
-        val intent = Intent(this, BluetoothActivityAdapter::class.java)
+        val intent = Intent(this, BluetoothDetails::class.java)
         intent.putExtra("ble_device", device)
         startActivity(intent)
     }
@@ -157,35 +155,6 @@ class BluetoothActivity : AppCompatActivity() {
                     .show()
             }
         }
-    }
-
-    private fun startTimer() {
-        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                mTimeLeftInMillis = millisUntilFinished
-                updateCountDownText()
-                progressBar.progress = (SCAN_PERIOD - millisUntilFinished).toInt() % 100
-            }
-
-            override fun onFinish() {
-                mTimerRunning = false
-            }
-        }.start()
-        mTimerRunning = true
-    }
-
-    private fun resetTimer() {
-        mTimeLeftInMillis = SCAN_PERIOD
-        updateCountDownText()
-        progressBar.progress = 0
-    }
-
-    private fun updateCountDownText() {
-        val minutes = (mTimeLeftInMillis / 1000).toInt() / 60
-        val seconds = (mTimeLeftInMillis / 1000).toInt() % 60
-        val timeLeftFormatted: String =
-            java.lang.String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
-        timer.text = timeLeftFormatted
     }
 
     companion object {
