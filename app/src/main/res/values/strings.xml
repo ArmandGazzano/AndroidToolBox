@@ -43,4 +43,9 @@
     <string name="_10_00">00:00</string>
     <string name="example">example</string>
     <string name="acc_s_g_n_rique">Accès générique</string>
+    <string name="en_attente_de_connexion">En attente de connexion</string>
+    <string name="_lecture">LECTURE</string>
+    <string name="ecrire">ECRIRE</string>
+    <string name="notifier">NOTIFIER</string>
+    <string name="entrez_une_valeur">Entrez une valeur</string>
 </resources>

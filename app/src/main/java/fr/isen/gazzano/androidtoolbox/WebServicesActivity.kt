@@ -2,6 +2,7 @@ package fr.isen.gazzano.androidtoolbox
 
 import Next_evolution
 import Pokemon
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,8 @@ import org.json.JSONObject
 
 class WebServicesActivity : AppCompatActivity() {
 
-    private val url = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
+    private val url =
+        "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
     private val listPokemon = mutableListOf<Pokemon>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,27 +31,28 @@ class WebServicesActivity : AppCompatActivity() {
         //val pokemonList2 =  Gson().fromJson(, Pokemon::class.java)
     }
 
-    fun getJsonObjectRequest() : JsonObjectRequest {
+    fun getJsonObjectRequest(): JsonObjectRequest {
 
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
-                val pokemonListGson =  Gson().fromJson(response.toString(), Pokemon::class.java)
+                val pokemonListGson = Gson().fromJson(response.toString(), Pokemon::class.java)
                 parseObject(response)
                 println(pokemonListGson)
             },
-            Response.ErrorListener {  })
+            Response.ErrorListener { })
 
         return jsonObjectRequest
     }
 
     fun parseObject(response: JSONObject) {
-        val jsonArrayResults : JSONArray = response.getJSONArray("pokemon")
+        val jsonArrayResults: JSONArray = response.getJSONArray("pokemon")
         val size: Int = jsonArrayResults.length()
         val i: Int = 0
         for (i in 0 until size) {
             val pokemonObject = jsonArrayResults.getJSONObject(i)
 
             val pokemonTypeObject = pokemonObject.getJSONArray("type")
+            val pokemonWeaknessesObeject = pokemonObject.getJSONArray("weaknesses")
 
             /*
             val pokemonMultipliersObjects =  pokemonObject.getJSONArray("multipliers")
@@ -71,13 +74,35 @@ class WebServicesActivity : AppCompatActivity() {
             val avg_spawns = pokemonObject.getInt("avg_spawns")
             val spawn_time = pokemonObject.getString("spawn_time")
             val multipliers = listOf<Double>()
-            val weaknesses = listOf<String>()
+            val weaknesses = pokemonWeaknessesObeject
             val next_evolution = listOf<Next_evolution>()
 
-            listPokemon += Pokemon(id, num, name, img, type, height, weight, candy, /*candy_count,*/ egg, spawn_chance, avg_spawns, spawn_time, multipliers, weaknesses, next_evolution)
+            listPokemon += Pokemon(
+                id,
+                num,
+                name,
+                img,
+                type,
+                height,
+                weight,
+                candy, /*candy_count,*/
+                egg,
+                spawn_chance,
+                avg_spawns,
+                spawn_time,
+                multipliers,
+                weaknesses,
+                next_evolution
+            )
 
         }
-        recyclerView.adapter = WebServicesAdapter(this, listPokemon)
+        recyclerView.adapter = WebServicesAdapter(this, listPokemon, ::onDeviceClicked)
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun onDeviceClicked(pokemon: Pokemon) {
+        val intent = Intent(this, WebServiceDetails::class.java)
+        intent.putExtra("pokemon", pokemon)
+        startActivity(intent)
     }
 }

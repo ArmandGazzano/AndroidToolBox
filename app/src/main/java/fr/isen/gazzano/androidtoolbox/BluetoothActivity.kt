@@ -1,10 +1,7 @@
 package fr.isen.gazzano.androidtoolbox
 
 import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothManager
+import android.bluetooth.*
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
@@ -135,7 +132,6 @@ class BluetoothActivity : AppCompatActivity() {
     private fun onDeviceClicked(device: BluetoothDevice) {
         val intent = Intent(this, BluetoothDetails::class.java)
         intent.putExtra("ble_device", device)
-        //bluetoothGatt = device.connectGatt(this, false, gattCallback)
         startActivity(intent)
     }
 
@@ -153,6 +149,11 @@ class BluetoothActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        scanLeDevice(false)
     }
 
     companion object {

@@ -37,6 +37,6 @@ class lifeCycleActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(applicationContext,"onDestroy()", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "onDestroy()", Toast.LENGTH_SHORT).show()
     }
 }

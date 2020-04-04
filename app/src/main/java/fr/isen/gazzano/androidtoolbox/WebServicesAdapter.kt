@@ -3,6 +3,7 @@ package fr.isen.gazzano.androidtoolbox
 import Pokemon
 import android.content.Context
 import android.content.Intent
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_web_services_cell.view.*
 import java.text.DecimalFormat
 
-class WebServicesAdapter(internal var context: Context, val pokemonList: List<Pokemon>) :
+class WebServicesAdapter(internal var context: Context, val pokemonList: List<Pokemon>, private val pokemonClickListener: (Pokemon) -> Unit) :
     RecyclerView.Adapter<WebServicesAdapter.WebServicesViewHolder>() {
 
 
@@ -47,6 +48,9 @@ class WebServicesAdapter(internal var context: Context, val pokemonList: List<Po
 
         holder.image.setOnClickListener {
 
+        }
+        holder.userCell.setOnClickListener {
+            pokemonClickListener.invoke(pokemonList[position])
         }
 
         Picasso.get().load(R.drawable.none).into(holder.pokemonType1)
@@ -89,6 +93,7 @@ class WebServicesAdapter(internal var context: Context, val pokemonList: List<Po
         val pokemonType1: ImageView = userView.type1
         val pokemonType2: ImageView = userView.type2
         var image: ImageView = userView.type2
+        var userCell = userView.user_cell
     }
 
     /*

@@ -2,12 +2,12 @@ package fr.isen.gazzano.androidtoolbox
 
 
 import android.bluetooth.*
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_bluetooth_details.*
+
 
 class BluetoothDetails : AppCompatActivity() {
 
@@ -21,6 +21,7 @@ class BluetoothDetails : AppCompatActivity() {
         setContentView(R.layout.activity_bluetooth_details)
 
         val device: BluetoothDevice = intent.getParcelableExtra("ble_device")
+        nameDevice.text = device.name
         bluetoothGatt = device.connectGatt(this, true, gattCallback)
     }
 
@@ -58,9 +59,32 @@ class BluetoothDetails : AppCompatActivity() {
                             it.characteristics
                         )
                     }?.toMutableList() ?: arrayListOf()
-                )
+                , this@BluetoothDetails, gatt)
                 detailsView.layoutManager = LinearLayoutManager(this@BluetoothDetails)
             }
+        }
+
+        override fun onCharacteristicRead(
+            gatt: BluetoothGatt?,
+            characteristic: BluetoothGattCharacteristic,
+            status: Int
+        ) {
+            val value = characteristic.getStringValue(0)
+            Log.e(
+                "TAG",
+                "onCharacteristicRead: " + value + " UUID " + characteristic.uuid.toString()
+            )
+        }
+
+        override fun onCharacteristicChanged(
+            gatt: BluetoothGatt?,
+            characteristic: BluetoothGattCharacteristic
+        ) {
+            val value = characteristic.value
+            Log.e(
+                "TAG",
+                "onCharacteristicRead: " + value + " UUID " + characteristic.uuid.toString()
+            )
         }
     }
 
@@ -70,14 +94,7 @@ class BluetoothDetails : AppCompatActivity() {
     }
 
     companion object {
-        private const val STATE_DISCONNECTED = "déconnecté"
-        private const val STATE_CONNECTING = 1
-        private const val STATE_CONNECTED = "Connecté"
-        const val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
-        const val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
-        const val ACTION_GATT_SERVICES_DISCOVERED =
-            "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"
-        const val ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE"
-        const val EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA"
+        private const val STATE_DISCONNECTED = "Status : Déconnecté"
+        private const val STATE_CONNECTED = "Status : Connecté"
     }
 }

@@ -1,4 +1,8 @@
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parceler
+import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 
 /*
@@ -12,23 +16,65 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
+@Parcelize
+data class Pokemon(
 
-data class Pokemon (
-
-	@SerializedName("id") val id : Int,
-	@SerializedName("num") val num : Int,
-	@SerializedName("name") val name : String,
-	@SerializedName("img") val img : String,
-	@SerializedName("type") val type : JSONArray,
-	@SerializedName("height") val height : String,
-	@SerializedName("weight") val weight : String,
-	@SerializedName("candy") val candy : String,
+	@SerializedName("id") val id: Int,
+	@SerializedName("num") val num: Int,
+	@SerializedName("name") val name: String,
+	@SerializedName("img") val img: String,
+	@SerializedName("type") val type: JSONArray,
+	@SerializedName("height") val height: String,
+	@SerializedName("weight") val weight: String,
+	@SerializedName("candy") val candy: String,
 	//@SerializedName("candy_count") val candy_count : Int,
-	@SerializedName("egg") val egg : String,
-	@SerializedName("spawn_chance") val spawn_chance : Double,
-	@SerializedName("avg_spawns") val avg_spawns : Int,
-	@SerializedName("spawn_time") val spawn_time : String,
-	@SerializedName("multipliers") val multipliers : List<Double>,
-	@SerializedName("weaknesses") val weaknesses : List<String>,
-	@SerializedName("next_evolution") val next_evolution : List<Next_evolution>
-)
+	@SerializedName("egg") val egg: String,
+	@SerializedName("spawn_chance") val spawn_chance: Double,
+	@SerializedName("avg_spawns") val avg_spawns: Int,
+	@SerializedName("spawn_time") val spawn_time: String,
+	@SerializedName("multipliers") val multipliers: List<Double>,
+	@SerializedName("weaknesses") val weaknesses: JSONArray,
+	@SerializedName("next_evolution") val next_evolution: List<Next_evolution>
+) : Parcelable {
+
+	constructor(parcel: Parcel) : this(
+		parcel.readInt(),
+		parcel.readInt(),
+		parcel.readString().toString(),
+		parcel.readString().toString(),
+		TODO("type"),
+		parcel.readString().toString(),
+		parcel.readString().toString(),
+		parcel.readString().toString(),
+		parcel.readString().toString(),
+		parcel.readDouble(),
+		parcel.readInt(),
+		parcel.readString().toString(),
+		TODO("multipliers"),
+		TODO("weaknesses"),
+		TODO("next_evolution")
+	) {
+	}
+
+	companion object : Parceler<Pokemon> {
+
+		override fun Pokemon.write(parcel: Parcel, flags: Int) {
+			parcel.writeInt(id)
+			parcel.writeInt(num)
+			parcel.writeString(name)
+			parcel.writeString(img)
+			parcel.writeString(height)
+			parcel.writeString(weight)
+			parcel.writeString(candy)
+			parcel.writeString(egg)
+			parcel.writeDouble(spawn_chance)
+			parcel.writeInt(avg_spawns)
+			parcel.writeString(spawn_time)
+			//parcel.writeStringList(weaknesses)
+		}
+
+		override fun create(parcel: Parcel): Pokemon {
+			return Pokemon(parcel)
+		}
+	}
+}

@@ -50,12 +50,12 @@ class SaveActivity : AppCompatActivity() {
 
             }
 
-        date.setOnClickListener{
+        date.setOnClickListener {
             showDatePicker(dateSetListener)
         }
     }
 
-    private fun showDatePicker(dateSetListener: DatePickerDialog.OnDateSetListener){
+    private fun showDatePicker(dateSetListener: DatePickerDialog.OnDateSetListener) {
         val cal = Calendar.getInstance()
         DatePickerDialog(
             this@SaveActivity, dateSetListener,
@@ -80,7 +80,7 @@ class SaveActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun saveDataToFile( lastName: String, firstName: String, birthDate: String){
+    private fun saveDataToFile(lastName: String, firstName: String, birthDate: String) {
         val jsonObject = JSONObject()
         jsonObject.put(KEY_LAST_NAME, lastName)
         jsonObject.put(KEY_FIRST_NAME, firstName)
