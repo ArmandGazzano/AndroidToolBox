@@ -191,8 +191,6 @@ class BluetoothDetailsAdapter(
         }
     }
 
-    //push
-
     override fun onBindGroupViewHolder(
         holder: ServicesViewHolder,
         flatPosition: Int,
