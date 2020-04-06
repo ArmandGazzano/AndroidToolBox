@@ -4,9 +4,11 @@ package fr.isen.gazzano.androidtoolbox
 import android.bluetooth.*
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_bluetooth_details.*
+import kotlinx.android.synthetic.main.bluetooth_characteristic_cell.*
 
 
 class BluetoothDetails : AppCompatActivity() {
@@ -76,16 +78,39 @@ class BluetoothDetails : AppCompatActivity() {
             )
         }
 
-        override fun onCharacteristicChanged(
+        override fun onCharacteristicWrite(
             gatt: BluetoothGatt?,
-            characteristic: BluetoothGattCharacteristic
+            characteristic: BluetoothGattCharacteristic,
+            status: Int
         ) {
             val value = characteristic.value
             Log.e(
                 "TAG",
-                "onCharacteristicRead: " + value + " UUID " + characteristic.uuid.toString()
+                "onCharacteristicWrite: " + value + " UUID " + characteristic.uuid.toString()
             )
         }
+
+        override fun onCharacteristicChanged(
+            gatt: BluetoothGatt?,
+            characteristic: BluetoothGattCharacteristic
+        ) {
+            val value = byteArrayToHexString(characteristic.value)
+            Log.e(
+                "TAG",
+                "onCharacteristicChanged: " + value + " UUID " + characteristic.uuid.toString()
+            )
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun byteArrayToHexString(array: ByteArray): String {
+        val result = StringBuilder(array.size * 2)
+        for ( byte in array ) {
+            val toAppend = String.format("%X", byte) // hexadecimal
+            result.append(toAppend).append("-")
+        }
+        result.setLength(result.length - 1) // remove last '-'
+        return result.toString()
     }
 
     override fun onStop() {
