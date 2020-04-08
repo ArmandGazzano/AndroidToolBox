@@ -45,21 +45,6 @@ class BluetoothActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth)
 
-        checkPermission()
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    PERMISSIONS_REQUEST_LOCATION)
-            }
-        }
-
         bleTextFailed.visibility = View.GONE
 
         searchButton.setOnClickListener {
@@ -68,12 +53,12 @@ class BluetoothActivity : AppCompatActivity() {
                     //init scan
                     if (textView12.text == "Lancer le scan BLE") {
                         searchButton.setImageResource(android.R.drawable.ic_media_pause)
-                        textView12.text = "Scan en cours ..."
+                        textView12.text = getString(R.string.scanning)
                         initBLEScan()
                         initScan()
                     } else if (textView12.text == "Scan en cours ...") {
                         searchButton.setImageResource(android.R.drawable.ic_media_play)
-                        textView12.text = "Lancer le scan BLE"
+                        textView12.text = getString(R.string.start_scan)
                         progressBar.visibility = View.INVISIBLE
                         dividerBle.visibility = View.VISIBLE
                     }
@@ -175,25 +160,8 @@ class BluetoothActivity : AppCompatActivity() {
         scanLeDevice(false)
     }
 
-    private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            makeLocationPermissionRequest()
-        }
-    }
-
-    private fun makeLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            PERMISSIONS_REQUEST_LOCATION
-        )
-    }
-
     companion object {
         private const val SCAN_PERIOD: Long = 60000
         private const val REQUEST_ENABLE_BT = 44
-        private const val PERMISSIONS_REQUEST_LOCATION = 1
     }
 }

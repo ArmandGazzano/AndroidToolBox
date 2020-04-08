@@ -30,16 +30,10 @@ class PermissionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
-        checkContactPermission()
-        checkCameraPermission()
         loadContacts()
 
-
-        //contact_list.adapter =
-        //   ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
-
         imageView.setOnClickListener {
-            showPictureDialog();
+            showPictureDialog()
         }
     }
 
@@ -50,13 +44,13 @@ class PermissionsActivity : AppCompatActivity() {
             "Select photo from gallery",
             "Capture photo from camera"
         )
-        pictureDialog.setItems(pictureDialogItems,
-            DialogInterface.OnClickListener { dialog, which ->
-                when (which) {
-                    0 -> pickImageFromGallery()
-                    1 -> takePictureIntent()
-                }
-            })
+        pictureDialog.setItems(pictureDialogItems
+        ) { dialog, which ->
+            when (which) {
+                0 -> pickImageFromGallery()
+                1 -> takePictureIntent()
+            }
+        }
         pictureDialog.show()
     }
 
@@ -92,7 +86,7 @@ class PermissionsActivity : AppCompatActivity() {
     }
 
     private fun getContacts() {
-        val resolver: ContentResolver = contentResolver;
+        val resolver: ContentResolver = contentResolver
         val cursor = resolver.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
@@ -113,45 +107,11 @@ class PermissionsActivity : AppCompatActivity() {
         cursor?.close()
     }
 
-    private fun checkContactPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Permission is not granted
-            makeContactPermissionRequest()
-        }
-    }
-
-    private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Permission is not granted
-            makeCameraPermissionRequest()
-        }
-    }
-
-    private fun makeContactPermissionRequest() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_CONTACTS),
-            1
-        )
-    }
-
-    private fun makeCameraPermissionRequest() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.CAMERA),
-            2
-        )
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
             imageView.setImageURI(data?.data)
         } else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
-            var bmp = data?.extras?.get("data") as Bitmap
+            val bmp = data?.extras?.get("data") as Bitmap
             imageView.setImageBitmap(bmp)
         }
     }

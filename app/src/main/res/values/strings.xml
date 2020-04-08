@@ -58,4 +58,6 @@
     <string name="type1">type1</string>
     <string name="type2">type2</string>
     <string name="arrow">arrow</string>
+    <string name="start_scan">Lancer le scan BLE</string>
+    <string name="scanning">Scan en cours ...</string>
 </resources>
