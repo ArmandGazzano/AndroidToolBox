@@ -14,11 +14,17 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.bluetoothButton
+import kotlinx.android.synthetic.main.activity_home.decoButton
+import kotlinx.android.synthetic.main.activity_home.lifeCycleButton
+import kotlinx.android.synthetic.main.activity_home.permissionsButton
+import kotlinx.android.synthetic.main.activity_home.saveButton
+import kotlinx.android.synthetic.main.activity_home.wsButton
+import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityHome : AppCompatActivity() {
 
-    var RECORD_REQUEST_CODE = 1
     private val USER_PREFS = "user_prefs"
     lateinit var sharedPreferences: SharedPreferences
 

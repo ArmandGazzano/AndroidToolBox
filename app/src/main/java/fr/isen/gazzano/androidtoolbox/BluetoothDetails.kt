@@ -4,7 +4,6 @@ package fr.isen.gazzano.androidtoolbox
 import android.bluetooth.*
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_bluetooth_details.*
@@ -16,6 +15,7 @@ class BluetoothDetails : AppCompatActivity() {
     private var bluetoothGatt: BluetoothGatt? = null
     private var TAG: String = "services"
     private lateinit var adapter: BluetoothDetailsAdapter
+    var valueNotify = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +76,9 @@ class BluetoothDetails : AppCompatActivity() {
                 "TAG",
                 "onCharacteristicRead: " + value + " UUID " + characteristic.uuid.toString()
             )
+            runOnUiThread {
+                detailsView.adapter?.notifyDataSetChanged()
+            }
         }
 
         override fun onCharacteristicWrite(
@@ -88,6 +91,9 @@ class BluetoothDetails : AppCompatActivity() {
                 "TAG",
                 "onCharacteristicWrite: " + value + " UUID " + characteristic.uuid.toString()
             )
+            runOnUiThread {
+                detailsView.adapter?.notifyDataSetChanged()
+            }
         }
 
         override fun onCharacteristicChanged(
@@ -99,7 +105,9 @@ class BluetoothDetails : AppCompatActivity() {
                 "TAG",
                 "onCharacteristicChanged: " + value + " UUID " + characteristic.uuid.toString()
             )
-            adapter.notifyDataSetChanged()
+            runOnUiThread {
+                detailsView.adapter?.notifyDataSetChanged()
+            }
         }
     }
 

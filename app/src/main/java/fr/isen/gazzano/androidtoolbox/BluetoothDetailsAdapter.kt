@@ -138,17 +138,18 @@ class BluetoothDetailsAdapter(
         holder.characteristicName.text = name
         holder.properties.text = "Proprietés : ${proprieties(characteristic.properties)}"
 
-        ble?.readCharacteristic(characteristic)
-        holder.valueBle.text =  "Valeur : "
+
+        if (characteristic.uuid == UUID.fromString("466c9abc-f593-11e8-8eb2-f2801f1b9fd1") && notifier){
+            holder.valueBle.text =  "Valeur : ${byteArrayToHexString(characteristic.value)}"
+        } else if (characteristic.value != null) {
+            holder.valueBle.text =  "Valeur : ${String (characteristic.value)}"
+        } else {
+            holder.valueBle.text =  "Valeur : "
+        }
 
 
         holder.buttonRead.setOnClickListener {
             ble?.readCharacteristic(characteristic)
-            if(characteristic.value != null){
-               holder.valueBle.text =  "Valeur : ${String (characteristic.value)}"
-            } else {
-               holder.valueBle.text =  "Valeur : null"
-            }
         }
 
 

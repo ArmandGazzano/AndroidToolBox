@@ -52,10 +52,9 @@ class WebServicesActivity : AppCompatActivity() {
             val pokemonObject = jsonArrayResults.getJSONObject(i)
 
             val pokemonTypeObject = pokemonObject.getJSONArray("type")
-            val pokemonWeaknessesObeject = pokemonObject.getJSONArray("weaknesses")
+            val pokemonWeaknessesObject = pokemonObject.getJSONArray("weaknesses")
 
             /*
-            val pokemonMultipliersObjects =  pokemonObject.getJSONArray("multipliers")
             val pokemonWeaknessObjects = pokemonObject.getJSONArray("weaknesses")
             val pokemonNextEvolutionObjects = pokemonObject.getJSONArray("next_evolution")
              */
@@ -74,7 +73,7 @@ class WebServicesActivity : AppCompatActivity() {
             val avg_spawns = pokemonObject.getInt("avg_spawns")
             val spawn_time = pokemonObject.getString("spawn_time")
             val multipliers = listOf<Double>()
-            val weaknesses = pokemonWeaknessesObeject
+            val weaknesses = pokemonWeaknessesObject
             val next_evolution = listOf<Next_evolution>()
 
             listPokemon += Pokemon(
@@ -94,7 +93,6 @@ class WebServicesActivity : AppCompatActivity() {
                 weaknesses,
                 next_evolution
             )
-
         }
         recyclerView.adapter = WebServicesAdapter(this, listPokemon, ::onDeviceClicked)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -102,7 +100,21 @@ class WebServicesActivity : AppCompatActivity() {
 
     private fun onDeviceClicked(pokemon: Pokemon) {
         val intent = Intent(this, WebServiceDetails::class.java)
-        intent.putExtra("pokemon", pokemon)
+        intent.putExtra("name", pokemon.name)
+        intent.putExtra("id", pokemon.id)
+        intent.putExtra("num",pokemon.num)
+        intent.putExtra("img", pokemon.img)
+        intent.putExtra("type1", pokemon.type.getString(0))
+        intent.putExtra("type2", pokemon.type.getString(1))
+        intent.putExtra("height", pokemon.height)
+        intent.putExtra("weight", pokemon.weight)
+        intent.putExtra("candy", pokemon.candy)
+        intent.putExtra("egg", pokemon.egg)
+        intent.putExtra("spawn_chance", pokemon.spawn_chance)
+        intent.putExtra("avg_spawns", pokemon.avg_spawns)
+        intent.putExtra("spawn_time", pokemon.spawn_time)
+        intent.putExtra("weaknesses", pokemon.weaknesses.getString(0))
+
         startActivity(intent)
     }
 }
