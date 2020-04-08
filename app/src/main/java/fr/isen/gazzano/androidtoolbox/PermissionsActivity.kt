@@ -30,9 +30,10 @@ class PermissionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
-        checkPermission()
-
+        checkContactPermission()
+        checkCameraPermission()
         loadContacts()
+
 
         //contact_list.adapter =
         //   ArrayAdapter(this, android.R.layout.simple_list_item_1, contacts.sorted())
@@ -70,15 +71,6 @@ class PermissionsActivity : AppCompatActivity() {
             takePictureIntent.resolveActivity(packageManager)?.also {
                 startActivityForResult(takePictureIntent, 1001)
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
-            imageView.setImageURI(data?.data)
-        } else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
-            var bmp = data?.extras?.get("data") as Bitmap
-            imageView.setImageBitmap(bmp)
         }
     }
 
@@ -121,13 +113,16 @@ class PermissionsActivity : AppCompatActivity() {
         cursor?.close()
     }
 
-    private fun checkPermission() {
+    private fun checkContactPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
             != PackageManager.PERMISSION_GRANTED
         ) {
             // Permission is not granted
             makeContactPermissionRequest()
         }
+    }
+
+    private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -150,5 +145,14 @@ class PermissionsActivity : AppCompatActivity() {
             arrayOf(Manifest.permission.CAMERA),
             2
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
+            imageView.setImageURI(data?.data)
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
+            var bmp = data?.extras?.get("data") as Bitmap
+            imageView.setImageBitmap(bmp)
+        }
     }
 }

@@ -44,9 +44,7 @@ class WebServicesAdapter(internal var context: Context, val pokemonList: List<Po
                 .replace("\"]", "").replace(",", "       ").replace("\"", "")
         holder.pokemonTypes.text = HtmlCompat.fromHtml(text2, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-        holder.image.setOnClickListener {
 
-        }
         holder.userCell.setOnClickListener {
             pokemonClickListener.invoke(pokemonList[position])
         }
@@ -93,12 +91,4 @@ class WebServicesAdapter(internal var context: Context, val pokemonList: List<Po
         var image: ImageView = userView.type2
         var userCell = userView.user_cell
     }
-
-    /*
-    private fun startActivityDetails() {
-        val intent = Intent(context, lifeCycleActivity::class.java)
-        startActivity(intent)
-    }
-
-     */
 }

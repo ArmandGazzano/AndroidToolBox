@@ -2,6 +2,8 @@ package fr.isen.gazzano.androidtoolbox
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.TokenWatcher
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_web_service_details.*
 import java.text.DecimalFormat
@@ -73,5 +75,7 @@ class WebServiceDetails() :
 
         val pokeSpawn = intent.getDoubleExtra("spawn_chance", 0.0)
         pokemon_spawn.text = pokeSpawn.toString()
+
+        val pokeFaiblesse = intent.getStringExtra("weaknesses")
     }
 }

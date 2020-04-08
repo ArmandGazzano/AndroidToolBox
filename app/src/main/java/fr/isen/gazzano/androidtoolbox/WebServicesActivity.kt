@@ -4,6 +4,7 @@ import Next_evolution
 import Pokemon
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -105,7 +106,9 @@ class WebServicesActivity : AppCompatActivity() {
         intent.putExtra("num",pokemon.num)
         intent.putExtra("img", pokemon.img)
         intent.putExtra("type1", pokemon.type.getString(0))
-        intent.putExtra("type2", pokemon.type.getString(1))
+        if (pokemon.type.length() == 2) {
+            intent.putExtra("type2", pokemon.type.getString(1))
+        }
         intent.putExtra("height", pokemon.height)
         intent.putExtra("weight", pokemon.weight)
         intent.putExtra("candy", pokemon.candy)
@@ -113,8 +116,11 @@ class WebServicesActivity : AppCompatActivity() {
         intent.putExtra("spawn_chance", pokemon.spawn_chance)
         intent.putExtra("avg_spawns", pokemon.avg_spawns)
         intent.putExtra("spawn_time", pokemon.spawn_time)
-        intent.putExtra("weaknesses", pokemon.weaknesses.getString(0))
-
+        var faiblesse: MutableList<String>? = null
+        for (a in 0 until pokemon.weaknesses.length()) {
+            faiblesse?.add(pokemon.weaknesses.getString(a))
+        }
+        intent.putExtra("weaknesses", faiblesse.toString())
         startActivity(intent)
     }
 }

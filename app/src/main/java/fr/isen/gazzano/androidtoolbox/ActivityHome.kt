@@ -32,6 +32,21 @@ class ActivityHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        val PermissionsRequestCode = 1
+        lateinit var managePermissions: ManagePermissions
+
+        val list = listOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+
+        managePermissions = ManagePermissions(this,list,PermissionsRequestCode)
+
+        managePermissions.checkPermissions()
+
         sharedPreferences = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
         lifeCycleButton.setOnClickListener {

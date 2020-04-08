@@ -48,4 +48,14 @@
     <string name="ecrire">ECRIRE</string>
     <string name="notifier">NOTIFIER</string>
     <string name="entrez_une_valeur">Entrez une valeur</string>
+    <string name="type">Type :</string>
+    <string name="taille">Taille :</string>
+    <string name="poids">Poids :</string>
+    <string name="id">Id :</string>
+    <string name="taux_d_appartition">Taux d\'appartition :</string>
+    <string name="pokeball">pokeball</string>
+    <string name="pokemon">pokemon</string>
+    <string name="type1">type1</string>
+    <string name="type2">type2</string>
+    <string name="arrow">arrow</string>
 </resources>
