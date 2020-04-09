@@ -176,11 +176,6 @@ class BluetoothDetailsAdapter(
                 holder.buttonNotify.setBackgroundColor(0x40FF0000)
                 if (ble != null) {
                     setCharacteristicNotificationInternal(ble, characteristic, true)
-                    if(characteristic.value != null){
-                        holder.valueBle.text =  "Valeur : ${byteArrayToHexString(characteristic.value)}"
-                    } else {
-                        holder.valueBle.text =  "Valeur : null"
-                    }
                 }
             } else {
                 notifier = false
