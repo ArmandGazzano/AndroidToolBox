@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_bluetooth_details.*
-import kotlinx.android.synthetic.main.bluetooth_characteristic_cell.*
 
 
 class BluetoothDetails : AppCompatActivity() {
@@ -15,8 +14,6 @@ class BluetoothDetails : AppCompatActivity() {
     private var bluetoothGatt: BluetoothGatt? = null
     private var TAG: String = "services"
     private lateinit var adapter: BluetoothDetailsAdapter
-    var valueNotify = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,7 +124,7 @@ class BluetoothDetails : AppCompatActivity() {
     }
 
     companion object {
-        private const val STATE_DISCONNECTED = "Status : Déconnecté"
-        private const val STATE_CONNECTED = "Status : Connecté"
+        private const val STATE_DISCONNECTED = "Statut : Déconnecté"
+        private const val STATE_CONNECTED = "Statut : Connecté"
     }
 }

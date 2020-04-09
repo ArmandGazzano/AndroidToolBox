@@ -31,7 +31,7 @@ class BluetoothActivity : AppCompatActivity() {
     private lateinit var adapter: BluetoothActivityAdapter
     private val devices = ArrayList<ScanResult>()
 
-    var bluetoothGatt: BluetoothGatt? = null
+    //var bluetoothGatt: BluetoothGatt? = null
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -77,7 +77,6 @@ class BluetoothActivity : AppCompatActivity() {
         deviceListRV.adapter = BluetoothActivityAdapter(devices, ::onDeviceClicked)
         deviceListRV.layoutManager = LinearLayoutManager(this)
     }
-
 
     private fun initScan() {
         progressBar.visibility = View.VISIBLE
