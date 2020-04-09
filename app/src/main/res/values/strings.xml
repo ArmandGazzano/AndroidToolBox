@@ -60,4 +60,5 @@
     <string name="arrow">arrow</string>
     <string name="start_scan">Lancer le scan BLE</string>
     <string name="scanning">Scan en cours ...</string>
+    <string name="contacts">Contacts :</string>
 </resources>
