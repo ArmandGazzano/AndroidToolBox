@@ -24,6 +24,8 @@ class BluetoothDetails : AppCompatActivity() {
         bluetoothGatt = device.connectGatt(this, true, gattCallback)
     }
 
+    //apk
+
     private val gattCallback = object : BluetoothGattCallback() {
         override fun onConnectionStateChange(
             gatt: BluetoothGatt,
